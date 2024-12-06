@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-
+import "../styles/index.css";
 const App = ({ Component, pageProps }) => {
   let Layout = Component.layout || Fragment;
 
