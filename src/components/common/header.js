@@ -2,7 +2,7 @@ import { Facebook, Instagram, Linkedin } from "lucide-react";
 
 const Navbar = () => {
   return (
-    <>
+    <header>
       <nav className="bg-slate-700 border-gray-200">
         <div className="flex flex-wrap justify-between items-center max-w-screen-xl px-4 mx-auto 2xl:px-0 py-4">
           <a
@@ -178,7 +178,7 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-    </>
+    </header>
   );
 };
 
