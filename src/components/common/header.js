@@ -1,14 +1,42 @@
-import { Facebook, Instagram, Linkedin, Menu, X, Home, Gift, CakeSlice, ShoppingCart, User, ChevronDown } from "lucide-react";
-import { useState } from "react";
+import {
+  Facebook,
+  Instagram,
+  Linkedin,
+  Menu,
+  X,
+  Home,
+  Gift,
+  CakeSlice,
+  ShoppingCart,
+  User,
+  ChevronDown,
+} from "lucide-react";
+import { useState, useEffect } from "react";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFlavorMenuOpen, setIsFlavorMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  const handleScroll = () => {
+    if (window.scrollY > 50) {
+      setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <>
-      <header>
-        <nav className="bg-slate-700 border-gray-200">
+      <header className={`sticky top-0 z-10 `}>
+        <nav className={`bg-slate-700 border-gray-200 `}>
           <div className="flex flex-wrap justify-between items-center max-w-screen-xl px-4 mx-auto 2xl:px-0 py-4">
             <a
               href="#"
@@ -19,7 +47,7 @@ const Navbar = () => {
                 The Cake Factory
               </span>
             </a>
-            
+
             {/* Hamburger Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -27,9 +55,12 @@ const Navbar = () => {
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
-
             {/* Mobile Menu */}
-            <div className={`${isMenuOpen ? 'block' : 'hidden'} w-full sm:hidden mt-4 border-t border-gray-600 pt-4`}>
+            <div
+              className={`${
+                isMenuOpen ? "block" : "hidden"
+              } w-full sm:hidden mt-4 border-t border-gray-600 pt-4`}
+            >
               <div className="flex flex-col">
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <a
@@ -81,7 +112,11 @@ const Navbar = () => {
             </div>
 
             {/* Desktop Menu */}
-            <div className="flex-row items-center space-x-6 rtl:space-x-reverse hidden sm:flex sm:ml-auto">
+            <div
+              className={`flex-row items-center space-x-6 rtl:space-x-reverse hidden  sm:ml-auto  ${
+                isScrolled ? "hidden" : "sm:flex"
+              }`}
+            >
               <a
                 href="#"
                 className="text-sm text-white hover:underline hover:text-pink-500"
@@ -134,7 +169,7 @@ const Navbar = () => {
         </nav>
 
         {/* Desktop Navigation */}
-        <nav className="bg-white dark:bg-gray-800 antialiased hidden lg:block">
+        <nav className="bg-white  antialiased hidden lg:block">
           <div className="max-w-screen-xl px-4 mx-auto 2xl:px-0 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-8">
@@ -211,7 +246,7 @@ const Navbar = () => {
                 <input
                   type="text"
                   placeholder="Search..."
-                  className="w-72 px-3 py-2 border border-gray-300 rounded-md text-sm text-gray-900 dark:bg-gray-700 dark:text-white dark:border-gray-600"
+                  className="w-72 px-3 py-2 border border-gray-300 rounded-md text-sm text-gray-900  dark:text-white "
                 />
               </div>
 
@@ -220,7 +255,7 @@ const Navbar = () => {
                 <button
                   id="myCartButton"
                   type="button"
-                  className="inline-flex items-center rounded-lg justify-center p-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm font-medium leading-none text-gray-900 dark:text-white hover:text-pink-500"
+                  className="inline-flex items-center rounded-lg justify-center p-2 hover:bg-gray-100 text-sm font-medium leading-none text-gray-900  hover:text-pink-500"
                 >
                   <span className="sr-only ">Cart</span>
                   <svg
@@ -246,7 +281,7 @@ const Navbar = () => {
                 <button
                   id="userButton"
                   type="button"
-                  className="inline-flex items-center rounded-lg justify-center p-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm font-medium leading-none text-gray-900 dark:text-white hover:text-pink-500"
+                  className="inline-flex items-center rounded-lg justify-center p-2 hover:bg-gray-100  text-sm font-medium leading-none text-gray-900  hover:text-pink-500"
                 >
                   <svg
                     className="w-5 h-5 me-1"
@@ -271,7 +306,7 @@ const Navbar = () => {
         </nav>
 
         {/* Mobile Bottom Navigation */}
-        <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 lg:hidden">
+        <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 lg:hidden z-50">
           <div className="grid grid-cols-5 gap-1">
             <a
               href="#"

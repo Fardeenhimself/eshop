@@ -1,57 +1,90 @@
-import React, { useEffect, useState } from 'react';
+import { useState, useEffect } from "react";
 
-const Hero = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const slides = [
-    {
-      image: 'https://img.daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.webp',
-      caption: 'Delicious Chocolate Cake',
-    },
-    {
-      image: 'https://img.daisyui.com/images/stock/photo-1609621838510-5ad474b7d25d.webp',
-      caption: 'Fresh Strawberry Cake',
-    },
-    {
-      image: 'https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.webp',
-      caption: 'Tasty Vanilla Cake',
-    },
-    {
-      image: 'https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.webp',
-      caption: 'Yummy Red Velvet Cake',
-    },
-  ];
+const carouselData = [
+  {
+    image: "./1.png",
+    caption: "Delicious Chocolate Cake",
+    buttonText: "Order Now",
+  },
+  {
+    image: "./2.png",
+    caption: "Fresh Strawberry Cake",
+    buttonText: "Order Now",
+  },
+  {
+    image: "3.jpg",
+    caption: "Tasty Vanilla Cake",
+    buttonText: "Order Now",
+  },
+  {
+    image: "4.jpg",
+    caption: "Yummy Red Velvet Cake",
+    buttonText: "Order Now",
+  },
+];
 
+const Carousel = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Auto-slide effect
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
-    }, 3000);
-    return () => clearInterval(interval);
+      setCurrentSlide((prev) => (prev + 1) % carouselData.length);
+    }, 5000); // Change slide every 5 seconds
+
+    return () => clearInterval(interval); // Cleanup interval on component unmount
   }, []);
 
+  // Manually change slides
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
+    setCurrentSlide((prev) => (prev + 1) % carouselData.length);
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + slides.length) % slides.length);
+    setCurrentSlide(
+      (prev) => (prev - 1 + carouselData.length) % carouselData.length
+    );
   };
 
   return (
-    <div className="relative w-full h-80 overflow-hidden">
-      <div className="absolute inset-0 transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-        {slides.map((slide, index) => (
-          <div key={index} className="w-full h-full flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: `url(${slide.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
-            <div className="bg-black bg-opacity-50 p-4 rounded text-white text-center">
-              <h2 className="text-xl font-bold">{slide.caption}</h2>
-              <button className="mt-4 px-4 py-2 bg-pink-500 text-white rounded">Order Now</button>
-            </div>
-          </div>
-        ))}
+    <div className="relative w-full h-[30vh] sm:h-[40vh] md:h-[50vh] lg:h-[60vh] xl:h-[70vh] overflow-hidden group">
+      {/* Background Image */}
+      <div
+        className="absolute top-0 left-0 w-full h-full bg-cover bg-center object-cover transition-all duration-1000 ease-in-out"
+        style={{
+          backgroundImage: `url(${carouselData[currentSlide].image})`,
+        }}
+      >
+        {/* Caption Text */}
+        <div className="flex flex-col justify-around items-center w-full h-full text-white text-center px-4">
+          {/* <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-4 transform transition-all duration-500 ease-in-out drop-shadow-lg">
+            {carouselData[currentSlide].caption}
+          </h2> */}
+          {/* <button className="bg-pink-500 mt-6 sm:mt-52 text-white py-2 px-6 text-sm sm:text-md md:text-lg lg:text-xl rounded-2xl  transition duration-300 ease-in-out">
+            {carouselData[currentSlide].buttonText}
+          </button> */}
+        </div>
       </div>
-      <button onClick={prevSlide} className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-lg">&#10094;</button>
-      <button onClick={nextSlide} className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-lg">&#10095;</button>
+
+      {/* Next and Previous buttons */}
+      <button
+        onClick={prevSlide}
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white bg-black bg-opacity-50 p-4 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out hover:bg-opacity-75 shadow-xl sm:p-3 md:p-4 lg:p-5"
+      >
+        <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl">
+          &larr;
+        </span>
+      </button>
+      <button
+        onClick={nextSlide}
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white bg-black bg-opacity-50 p-4 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out hover:bg-opacity-75 shadow-xl sm:p-3 md:p-4 lg:p-5"
+      >
+        <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl">
+          &rarr;
+        </span>
+      </button>
     </div>
   );
 };
 
-export default Hero;
+export default Carousel;
