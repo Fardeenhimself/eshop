@@ -278,14 +278,14 @@ const Navbar = () => {
               className="flex flex-col items-center justify-center py-3 text-gray-600 hover:text-pink-500"
             >
               <Home size={20} />
-              <span className="text-xs mt-1">Home</span>
+              <span className="text-xs">Home</span>
             </a>
             <button
               onClick={() => setIsFlavorMenuOpen(!isFlavorMenuOpen)}
               className="flex flex-col items-center justify-center py-3 text-gray-600 hover:text-pink-500 relative"
             >
               <CakeSlice size={20} />
-              <span className="text-xs mt-1">Flavors</span>
+              <span className="text-xs">Flavors</span>
               {/* Dropdown for flavors */}
               {isFlavorMenuOpen && (
                 <div className="absolute bottom-full mb-2 w-48 bg-white rounded-md shadow-lg py-1 left-1/2 transform -translate-x-1/2">
@@ -315,21 +315,21 @@ const Navbar = () => {
               className="flex flex-col items-center justify-center py-3 text-gray-600 hover:text-pink-500"
             >
               <Gift size={20} />
-              <span className="text-xs mt-1">Gift Box</span>
+              <span className="text-xs">Gift Box</span>
             </a>
             <a
               href="#"
               className="flex flex-col items-center justify-center py-3 text-gray-600 hover:text-pink-500"
             >
               <ShoppingCart size={20} />
-              <span className="text-xs mt-1">Cart</span>
+              <span className="text-xs">Cart</span>
             </a>
             <a
               href="#"
               className="flex flex-col items-center justify-center py-3 text-gray-600 hover:text-pink-500"
             >
               <User size={20} />
-              <span className="text-xs mt-1">Account</span>
+              <span className="text-xs">Account</span>
             </a>
           </div>
         </nav>
