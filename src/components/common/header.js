@@ -35,16 +35,25 @@ const Navbar = () => {
 
   return (
     <>
-      <header className={`sticky top-0 z-10 `}>
-        <nav className={`bg-slate-700 border-gray-200 `}>
+      <header className={`sticky top-0 z-10  `}>
+        {/* First Navbar - will be hidden on scroll */}
+        <nav
+          className={`bg-slate-700 border-gray-200 ${
+            isScrolled ? "-translate-y-full" : "translate-y-0"
+          }`}
+        >
           <div className="flex flex-wrap justify-between items-center max-w-screen-xl px-4 mx-auto 2xl:px-0 py-4">
             <a
               href="#"
               className="flex items-center space-x-3 rtl:space-x-reverse"
             >
               <img src="/logo.svg" className="h-8" alt="logo" />
-              <span className="self-center text-2xl font-semibold whitespace-nowrap text-white hover:text-pink-500">
-                The Cake Factory
+              <span
+                href="#"
+                className="self-center text-2xl font-semibold whitespace-nowrap"
+              >
+                <span className="text-purple-700 ">FM</span>{" "}
+                <span className="text-green-700 ">Cake Fair</span>
               </span>
             </a>
 
@@ -168,7 +177,7 @@ const Navbar = () => {
           </div>
         </nav>
 
-        {/* Desktop Navigation */}
+        {/* Second Navbar - will be sticky */}
         <nav className="bg-white  antialiased hidden lg:block">
           <div className="max-w-screen-xl px-4 mx-auto 2xl:px-0 py-4">
             <div className="flex items-center justify-between">
