@@ -16,32 +16,12 @@ import { useState, useEffect } from "react";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFlavorMenuOpen, setIsFlavorMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  const handleScroll = () => {
-    if (window.scrollY > 50) {
-      setIsScrolled(true);
-    } else {
-      setIsScrolled(false);
-    }
-  };
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   return (
     <>
-      <header className={`sticky top-0 z-10  `}>
+      <header className={`sticky top-0 z-50`}>
         {/* First Navbar - will be hidden on scroll */}
-        <nav
-          className={`bg-slate-700 border-gray-200 ${
-            isScrolled ? "-translate-y-full" : "translate-y-0"
-          }`}
-        >
+        <nav className={`bg-slate-700 border-gray-200 `}>
           <div className="flex flex-wrap justify-between items-center max-w-screen-xl px-4 mx-auto 2xl:px-0 py-4">
             <a
               href="#"
@@ -122,9 +102,7 @@ const Navbar = () => {
 
             {/* Desktop Menu */}
             <div
-              className={`flex-row items-center space-x-6 rtl:space-x-reverse hidden  sm:ml-auto  ${
-                isScrolled ? "hidden" : "sm:flex"
-              }`}
+              className={`flex-row items-center space-x-6 rtl:space-x-reverse hidden  sm:ml-auto  sm:flex`}
             >
               <a
                 href="#"
@@ -179,10 +157,10 @@ const Navbar = () => {
 
         {/* Second Navbar - will be sticky */}
         <nav className="bg-white  antialiased hidden lg:block">
-          <div className="max-w-screen-xl px-4 mx-auto 2xl:px-0 py-4">
+          <div className="max-w-screen-xl px-4 mx-auto 2xl:px-0 py-2">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-8">
-                <ul className="flex items-center justify-start gap-6 md:gap-8 py-3 sm:justify-center">
+                <ul className="flex items-center justify-start gap-6 md:gap-8  sm:justify-center">
                   <li>
                     <a
                       href="#"
@@ -193,15 +171,20 @@ const Navbar = () => {
                   </li>
                   <li className="shrink-0 relative">
                     <button
-                      onClick={() => setIsFlavorMenuOpen(!isFlavorMenuOpen)}
-                      className="flex items-center text-sm font-medium text-gray-900 hover:text-pink-500"
+                      onMouseOver={() => setIsFlavorMenuOpen(true)}
+                      onMouseLeave={() => setIsFlavorMenuOpen(false)}
+                      className="flex items-center text-sm font-medium text-gray-900 hover:text-pink-500 h-10"
                     >
                       Cake By Flavor
                       <ChevronDown size={16} className="ml-1" />
                     </button>
                     {/* Desktop Dropdown */}
                     {isFlavorMenuOpen && (
-                      <div className="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
+                      <div
+                        className="absolute left-0 w-48 bg-white rounded-md shadow-lg py-1 z-10"
+                        onMouseOver={() => setIsFlavorMenuOpen(true)}
+                        onMouseLeave={() => setIsFlavorMenuOpen(false)}
+                      >
                         <a
                           href="#"
                           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-pink-500"
