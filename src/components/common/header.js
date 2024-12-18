@@ -11,11 +11,14 @@ import {
   User,
   ChevronDown,
 } from "lucide-react";
+import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-const Navbar = () => {
+const Navbar = ({ toggleCart }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFlavorMenuOpen, setIsFlavorMenuOpen] = useState(false);
+  const router = useRouter();
 
   return (
     <>
@@ -248,6 +251,7 @@ const Navbar = () => {
                   id="myCartButton"
                   type="button"
                   className="inline-flex items-center rounded-lg justify-center p-2 hover:bg-gray-100 text-sm font-medium leading-none text-gray-900  hover:text-pink-500"
+                  onClick={toggleCart}
                 >
                   <span className="sr-only ">Cart</span>
                   <svg
@@ -270,28 +274,30 @@ const Navbar = () => {
                   <span className="hidden sm:flex">My Cart</span>
                 </button>
                 {/* User Dropdown */}
-                <button
-                  id="userButton"
-                  type="button"
-                  className="inline-flex items-center rounded-lg justify-center p-2 hover:bg-gray-100  text-sm font-medium leading-none text-gray-900  hover:text-pink-500"
-                >
-                  <svg
-                    className="w-5 h-5 me-1"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    fill="none"
-                    viewBox="0 0 24 24"
+                <Link href="/register">
+                  <button
+                    id="userButton"
+                    type="button"
+                    className="inline-flex items-center rounded-lg justify-center p-2 hover:bg-gray-100  text-sm font-medium leading-none text-gray-900  hover:text-pink-500"
                   >
-                    <path
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                    />
-                  </svg>
-                  <span className="hidden sm:flex">Account</span>
-                </button>
+                    <svg
+                      className="w-5 h-5 me-1"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                      />
+                    </svg>
+                    <span className="hidden sm:flex">Account</span>
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -346,6 +352,7 @@ const Navbar = () => {
             </a>
             <a
               href="#"
+              onClick={toggleCart}
               className="flex flex-col items-center justify-center py-3 text-gray-600 hover:text-pink-500"
             >
               <ShoppingCart size={20} />
@@ -353,6 +360,7 @@ const Navbar = () => {
             </a>
             <a
               href="#"
+              onClick={() => router.push("/register")}
               className="flex flex-col items-center justify-center py-3 text-gray-600 hover:text-pink-500"
             >
               <User size={20} />

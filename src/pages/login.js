@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
-const Register = () => {
+const Login = () => {
   const router = useRouter();
   const [show, setShow] = useState(false);
   return (
@@ -17,7 +17,7 @@ const Register = () => {
         <div className="w-full bg-gray-100 lg:w-1/2 flex items-center justify-center">
           <div className="max-w-md w-full p-6">
             <h1 className="text-3xl font-semibold mb-6 text-black text-center">
-              Sign Up
+              Sign In
             </h1>
             <h1 className="text-sm font-semibold mb-6 text-gray-500 text-center">
               Join to Our Community with all time access and free{" "}
@@ -30,9 +30,9 @@ const Register = () => {
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 512 512"
                     width="24px"
                     height="24px"
+                    viewBox="0 0 512 512"
                     id="google"
                   >
                     <path
@@ -76,7 +76,7 @@ const Register = () => {
                       d="M10.725 10.023L11.035 8H9.094V6.687c0-.553.27-1.093 1.14-1.093h.883V3.87s-.801-.137-1.567-.137c-1.6 0-2.644.97-2.644 2.724V8H5.13v2.023h1.777v4.892a7.037 7.037 0 002.188 0v-4.892h1.63z"
                     />
                   </svg>{" "}
-                  Sign Up with Github{" "}
+                  Sign Up with Facebook{" "}
                 </button>
               </div>
             </div>
@@ -84,20 +84,6 @@ const Register = () => {
               <p>or with email</p>
             </div>
             <form action="#" method="POST" className="space-y-4">
-              <div>
-                <label
-                  for="username"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Username
-                </label>
-                <input
-                  type="text"
-                  id="username"
-                  name="username"
-                  className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
-                />
-              </div>
               <div>
                 <label
                   for="email"
@@ -171,19 +157,19 @@ const Register = () => {
                   type="submit"
                   className="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800  focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300"
                 >
-                  Sign Up
+                  Sign In
                 </button>
               </div>
             </form>
             <div className="mt-4 text-sm text-gray-600 text-center">
               <p>
-                Already have an account?{" "}
+                Create an account?{" "}
                 <a
                   href="#"
-                  onClick={() => router.push("/login")}
+                  onClick={() => router.push("/register")}
                   className="text-black hover:underline"
                 >
-                  Login here
+                  Signup here
                 </a>
               </p>
             </div>
@@ -194,4 +180,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
