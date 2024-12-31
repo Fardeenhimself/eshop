@@ -10,6 +10,7 @@ import {
   ShoppingCart,
   User,
   ChevronDown,
+  Search,
 } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
@@ -18,7 +19,22 @@ import { useRouter } from "next/navigation";
 const Navbar = ({ toggleCart }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFlavorMenuOpen, setIsFlavorMenuOpen] = useState(false);
+  const [search, setSearch] = useState([]);
+  const [query, setQuery] = useState("");
   const router = useRouter();
+
+  const handleSearch = (e) => {
+    fetch(`http://192.168.1.6:8000/product?name=${e.target.value}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setSearch(data);
+        setQuery(e.target.value);
+      });
+  };
+
+  const handleSeeMore = () => {
+    router.push(`/search-results?query=${query}`); // Navigates to the search results page with the query param
+  };
 
   return (
     <>
@@ -53,6 +69,14 @@ const Navbar = ({ toggleCart }) => {
                 isMenuOpen ? "block" : "hidden"
               } w-full sm:hidden mt-4 border-t border-gray-600 pt-4`}
             >
+              {/* <div className="grid grid-cols-2 gap-4 mb-4">
+                <input
+                  type="text"
+                  placeholder="Search"
+                  onInput={handleSearch}
+                  className="p-2 border border-gray-600 rounded-lg"
+                />
+              </div> */}
               <div className="flex flex-col">
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <a
@@ -237,14 +261,55 @@ const Navbar = ({ toggleCart }) => {
               </div>
 
               {/* Search Bar */}
-              <div className="flex items-center justify-center space-x-4">
+              <div className="relative flex items-center justify-center space-x-4">
                 <input
                   type="text"
                   placeholder="Search..."
-                  className="w-72 px-3 py-2 border border-gray-300 rounded-md text-sm text-gray-900  dark:text-white "
+                  className="w-72 px-4 py-2 border border-gray-300 rounded-md text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  onInput={handleSearch}
                 />
-              </div>
 
+                {search.length > 0 && (
+                  <div className="absolute top-full left-0 w-72 bg-white rounded-lg shadow-xl py-4 mt-1 z-10 max-h-auto">
+                    {/* Loop through search results and limit to 5 */}
+                    {search.slice(0, 5).map((item) => (
+                      <div
+                        key={item.id}
+                        className="flex items-center p-3 border-b border-gray-200 hover:bg-gray-50 cursor-pointer transition-all duration-200"
+                      >
+                        {/* Product Image */}
+                        <img
+                          src={item.image}
+                          alt={item.product}
+                          className="w-16 h-16 object-cover rounded-lg mr-4"
+                        />
+                        <div className="flex-1">
+                          {/* Product Name */}
+                          <h4 className="text-sm font-semibold text-gray-800">
+                            {item.product}
+                          </h4>
+                          {/* Product Price */}
+                          <p className="text-xs text-gray-500">${item.price}</p>
+                        </div>
+                        {/* View Button */}
+                        <button className="text-sm text-blue-500 hover:underline">
+                          View
+                        </button>
+                      </div>
+                    ))}
+
+                    {/* Show "See More" button if more than 5 items */}
+                    {search.length > 5 && (
+                      <button
+                        onClick={handleSeeMore}
+                        className="w-full text-center py-2 text-sm font-medium text-blue-500 hover:underline mt-2"
+                      >
+                        See More
+                      </button>
+                    )}
+                  </div>
+                )}
+              </div>
               {/* Cart and User Dropdown */}
               <div className="flex items-center lg:space-x-2">
                 <button
@@ -308,10 +373,11 @@ const Navbar = ({ toggleCart }) => {
           <div className="grid grid-cols-5 gap-1">
             <a
               href="#"
+              onClick={() => router.push("/search-results")}
               className="flex flex-col items-center justify-center py-3 text-gray-600 hover:text-pink-500"
             >
-              <Home size={20} />
-              <span className="text-xs">Home</span>
+              <Search size={20} />
+              <span className="text-xs">Search</span>
             </a>
             <button
               onClick={() => setIsFlavorMenuOpen(!isFlavorMenuOpen)}
@@ -347,8 +413,8 @@ const Navbar = ({ toggleCart }) => {
               href="#"
               className="flex flex-col items-center justify-center py-3 text-gray-600 hover:text-pink-500"
             >
-              <Gift size={20} />
-              <span className="text-xs">Gift Box</span>
+              <Home size={20} />
+              <span className="text-xs">Home</span>
             </a>
             <a
               href="#"
@@ -358,6 +424,7 @@ const Navbar = ({ toggleCart }) => {
               <ShoppingCart size={20} />
               <span className="text-xs">Cart</span>
             </a>
+
             <a
               href="#"
               onClick={() => router.push("/register")}

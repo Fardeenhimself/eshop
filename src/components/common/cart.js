@@ -2,8 +2,14 @@ import React from "react";
 
 const cart = ({ toggleCart }) => {
   return (
-    <div className="fixed inset-0 w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] font-sans">
-      <div className="w-full max-w-xl bg-white shadow-lg relative ml-auto h-screen overflow-hidden">
+    <div
+      className="fixed inset-0 w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] font-sans overflow-hidden"
+      onClick={toggleCart}
+    >
+      <div
+        className="w-full max-w-xl bg-white shadow-lg relative ml-auto h-screen "
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="overflow-auto p-6 h-[calc(100vh-135px)]">
           {/* Header */}
           <div className="flex items-center gap-4 text-gray-800">
